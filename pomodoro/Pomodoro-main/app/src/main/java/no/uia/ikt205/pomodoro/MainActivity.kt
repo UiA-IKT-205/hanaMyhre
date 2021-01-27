@@ -13,9 +13,15 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var timer:CountDownTimer
     lateinit var startButton:Button
-    lateinit var coutdownDisplay:TextView
+    lateinit var countdownDisplay:TextView
 
-    val timeToCountDownInMs = 5000L
+    lateinit var button30:Button
+    lateinit var button60:Button
+    lateinit var button90:Button
+    lateinit var button120:Button
+
+    val minutesToMs = 60 * 1000L
+    var timeToCountDownInMs = 5000L
     val timeTicks = 1000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,11 +29,33 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
        startButton = findViewById<Button>(R.id.startCountdownButton)
-       startButton.setOnClickListener(){
-           startCountDown(it)
-       }
-       coutdownDisplay = findViewById<TextView>(R.id.countDownView)
+        button30 = findViewById<Button>(R.id.minutes30)
+        button60 = findViewById<Button>(R.id.minutes60)
+        button90 = findViewById<Button>(R.id.minutes90)
+        button120 = findViewById<Button>(R.id.minutes120)
 
+        startButton.setOnClickListener(){
+            startCountDown(it)
+        }
+
+        button30.setOnClickListener(){
+            timeToCountDownInMs = 30 * minutesToMs
+        }
+
+        button60.setOnClickListener(){
+            timeToCountDownInMs = 60 * minutesToMs
+        }
+
+        button90.setOnClickListener(){
+            timeToCountDownInMs = 90 * minutesToMs
+        }
+
+        button120.setOnClickListener(){
+            timeToCountDownInMs = 120 * minutesToMs
+        }
+
+
+       countdownDisplay = findViewById<TextView>(R.id.countDownView)
     }
 
     fun startCountDown(v: View){
@@ -45,8 +73,11 @@ class MainActivity : AppCompatActivity() {
         timer.start()
     }
 
+
     fun updateCountDownDisplay(timeInMs:Long){
-        coutdownDisplay.text = millisecondsToDescriptiveTime(timeInMs)
+        countdownDisplay.text = millisecondsToDescriptiveTime(timeInMs)
     }
+
+
 
 }
